@@ -5,6 +5,8 @@
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <unistd.h>
+#include <time.h>
+#include <sys/time.h>
 
 #define PORT 8080
 #define SIZE 1000
@@ -19,7 +21,9 @@ int main() {
     char buffer[SIZE];
 
     struct sockaddr_in serverAddr;
+
     memset(&serverAddr, 0, sizeof(serverAddr));
+
     serverAddr.sin_family = AF_INET;
     serverAddr.sin_port = htons(PORT);
     serverAddr.sin_addr.s_addr = INADDR_ANY;
@@ -29,27 +33,25 @@ int main() {
         exit(EXIT_FAILURE);
     }
 
-    while(1){
-        printf("Enter a message to send to the server: ");
-        fgets(buffer, sizeof(buffer), stdin);
-        buffer[strcspn(buffer, "\n")] = 0; // Remove newline character from input
+    struct timeval start, end;
+    gettimeofday(&start, NULL);
 
-        if (send(client_fd, buffer, strlen(buffer), 0) < 0) {
+    // Message sending loop
+    for (int i = 0; i < 1000; i++) {
+        char message[256];
+        snprintf(message, sizeof(message), "Package number %d", i);
+        if (send(client_fd, message, strlen(message), 0) < 0) {
             perror("Send failed");
-            close(client_fd);
-            return 1;
-        }
-
-        char serverResponse[SIZE];
-        int len = recv(client_fd, serverResponse, SIZE, 0);
-        if (len > 0) {
-            serverResponse[len] = '\0';
-            printf("Received data from server: %s\n", serverResponse);
-        } else {
-            printf("Server closed the connection.\n");
             break;
         }
+        usleep(10); // Sleep for 100ms
     }
+
+    // Receive acknowledgment from the server and print the time elapsed
+    gettimeofday(&end, NULL);
+    long seconds = (end.tv_sec - start.tv_sec);
+    long micros = ((seconds * 1000000) + end.tv_usec) - (start.tv_usec);
+    printf("Time elapsed: %ld seconds and %ld microseconds\n", seconds, micros);
 
     close(client_fd);
     return 0;
