@@ -6,7 +6,7 @@ This guide outlines the basic setup for a tcp server-client communication system
 
 1. **Start the Server:** Open a terminal and run the server application.
 2. **Start the Client:** In a separate terminal, run the client application. The client will send packages to the server.
-3. **Start multiple multiple threading server-client** Start the multi_tcp_server on one terminal. After that, you can start up to 10 multi_tcp_clients. Name your clients while starting them. They can send messages simultaneously to server
+3. **Start multiple multiple threading server-client:** Start the multi_tcp_server on one terminal. After that, you can start up to 10 multi_tcp_clients. Name your clients while starting them. They can send messages simultaneously to server
 
 ## Advanced Testing with iperf
 
