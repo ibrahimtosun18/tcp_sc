@@ -32,6 +32,12 @@ The server includes detailed error logging for SSL/TLS processes to help identif
 
 - **Error Handling:** Server logs include SSL error codes and descriptions, helping diagnose connection or security issues in real time.
 
+## Testing Security with SpyClient
+
+Test the security of your system by attempting to connect with `spyClient`, a client not configured with the appropriate SSL/TLS certificates.
+
+- **Scenario:** When `spyClient` tries to connect to the secure server, it should be unable to establish a connection. This simulates an unauthorized party attempting to access secure communication, which the server will deny, demonstrating the effectiveness of SSL/TLS in securing connections.
+
 ## Additional Notes
 
 Ensure that all certificates and keys are correctly configured both on the server and client sides. Store these files in secure locations and reference them accurately in your server and client applications.
