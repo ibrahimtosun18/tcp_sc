@@ -43,3 +43,8 @@ Test the security of your system by attempting to connect with `spyClient`, a cl
 Ensure that all certificates and keys are correctly configured both on the server and client sides. Store these files in secure locations and reference them accurately in your server and client applications.
 
 By following these steps, you can set up a robust and secure TCP server-client system with SSL/TLS encryption, capable of handling multiple clients and performing advanced network testing.
+
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
